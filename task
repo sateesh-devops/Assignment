@@ -1,12 +1,38 @@
 How do you set up a script to run every time a repository receives new commits through push?
 
-https://www.atlassian.com/git/tutorials/git-hooks. 
-https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks. 
+#To get started, we’ll create a new, empty repository in our home directory. We will call this proj.
+mkdir ~/proj
+cd ~/proj
+git init
 
+#Initialized empty Git repository in /home/demo/proj/.git/
+#Now, we are in the empty working directory of a git-controlled directory. Before we do anything else, let’s jump into the repository that is stored in the hidden file called .git within this directory:
+cd .git
+ls -F
+#branches/  config  description  HEAD  hooks/  info/  objects/  refs/
+#We can see a number of files and directories. The one we’re interested in is the hooks directory:
+cd hooks
+ls -l
+#First, we will install the Apache web server to demonstrate:
+sudo apt-get update
+sudo apt-get install apache2
+#In order for our script to modify the web root at /var/www/html (this is the document root on Ubuntu 14.04. Modify as needed), we need to have write permission. Let’s give our normal user ownership of this directory. You can do this by typing:
+sudo chown -R `whoami`:`id -gn` /var/www/html
+#Now, in our project directory, let’s create an index.html file:
+cd ~/proj
+nano index.html
+#Inside, we can add a little bit of HTML just to demonstrate the idea. It doesn’t have to be complicated:
+<h1>Here is a title!</h1>
+<p>Please deploy me!</p>
+#Add the new file to tell git to track the file:
+git add .
+#Now, before you commit, we are going to set up our post-commit hook for the repository. Create this file within the .git/hooks directory for the project:
+vim .git/hooks/post-commit
+=============================================================================================================================================================================
 How do you find a list of files that have changed in a particular commit?
 
 git show commit_id
-========================================================
+=============================================================================================================================================================================
 Monitor a log file, detect a pattern detection, send an email on detection?
 
 run the command
@@ -24,19 +50,39 @@ n1=`awk '/file not found/{n++}END{print n}' monitor.log`
 
 Code:
 */5 * * * * monitor.sh
-=========================================================
+===============================================================================================================================================================================
 Monitor process particular process on an instance, send an email on incase of state change like process got stopped, taking more CPU that threshold 
 
-https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/UsingAlarmActions.html. 
-=========================================================
+To create an alarm to stop an idle instance using the Amazon CloudWatch console
+1.Open the CloudWatch console at https://console.aws.amazon.com/cloudwatch/. 
+2.In the navigation pane, choose Alarms, CreateAlarm. 
+3.For the Select Metric step, do the following: 
+  a.Under EC2 Metrics, choose Per-Instance Metrics. 
+  b.Select the row with the instance and the CPUUtilization metric. 
+  c.For the statistic, choose Average. 
+  d.Choose a period (for example, 1 Hour). 
+  e.Choose Next. 
+4.For the Define Alarm step, do the following: 
+  a.Under Alarm Threshold, type a unique name for the alarm (for example,Stop EC2 instance) and a description of the alarm (for example, Stop EC2 instancewhen CPUis idle too long). Alarm names must contain only ASCII characters. 
+  b.Under Whenever, for is, choose < and type 10. For for, type 24consecutive periods. 
+    A graphical representation of the threshold is shown under AlarmPreview. 
+  c.Under Notification, for Send notificationto, choose an existing SNS topic or create a new one. 
+    To create an SNS topic, choose New list. For Sendnotification to, type a name for the SNS topic (for example,Stop_EC2_Instance). For Email list, type a comma-separated listof email addresses to be notified when the alarm changes to the ALARMstate. Each email address is sent a topic subscription confirmation email. You mustconfirm the subscription before notifications can be sent to an email address. 
+  d.Choose EC2 Action. 
+  e.For Whenever this alarm, choose State isALARM. For Take this action, choose Stopthis instance. 
+  f.Choose Create Alarm. 
+
+===============================================================================================================================================================================
 Show how to block ports
 
 We can set in bound rules in SG
-=====================================================
-Show how to setup port forwarding
+==========================================================================================================================================================================
+Show how to setup port forwarding?
+
+Create an EC2 instance under VPC and set the inbound rules through NAT gateway.
 
 https://aws.amazon.com/blogs/mt/amazon-ec2-instance-port-forwarding-with-aws-systems-manager/ 
-============================================================
+=====================================================================================================================================================================================
 Show list of processes using the network.
 
 netstat
