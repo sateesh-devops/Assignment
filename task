@@ -1,0 +1,57 @@
+How do you set up a script to run every time a repository receives new commits through push?
+
+https://www.atlassian.com/git/tutorials/git-hooks. 
+https://www.digitalocean.com/community/tutorials/how-to-use-git-hooks-to-automate-development-and-deployment-tasks. 
+
+How do you find a list of files that have changed in a particular commit?
+
+git show commit_id
+========================================================
+Monitor a log file, detect a pattern detection, send an email on detection?
+
+run the command
+Code:
+tail -f /var/log/messages >>monitor.log &
+
+put below monitor.sh in cronjob
+Code:
+$ cat monitor.sh
+
+#!/bin/bash
+n1=`awk '/file not found/{n++}END{print n}' monitor.log`
+[ $n1 -ge 1 ] && mailx  -s "error found" arumon@testing.com
+>my.log
+
+Code:
+*/5 * * * * monitor.sh
+=========================================================
+Monitor process particular process on an instance, send an email on incase of state change like process got stopped, taking more CPU that threshold 
+
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/UsingAlarmActions.html. 
+=========================================================
+Show how to block ports
+
+We can set in bound rules in SG
+=====================================================
+Show how to setup port forwarding
+
+https://aws.amazon.com/blogs/mt/amazon-ec2-instance-port-forwarding-with-aws-systems-manager/ 
+============================================================
+Show list of processes using the network.
+
+netstat
+
+Show the list of IPs a process is connected to
+netstat -tn
+
+Show how to list open files and kill processes tied to a user
+
+lsof
+
+https://www.thegeekstuff.com/2012/08/lsof-command-examples/.
+
+==========================================================
+Create a sample docker container with a Node.js Express app and demonstrate the installation.
+
+https://nodejs.org/en/docs/guides/nodejs-docker-webapp/ 
+===============================================================
